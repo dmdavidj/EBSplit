@@ -1,42 +1,47 @@
-# Yonsei Cancer Center - PDF EB Split  (포터블 EXE 만들기)
+PDF EB Split (Creating a Portable EXE)
 
-PDF를 원하는 배율로 확대해 A4/A3 여러 장으로 나누고, 이어붙임 점선 가이드와
-좌측 최상단 라벨을 넣은 새 PDF를 만듭니다. **이 PDF를 100%(실제 크기)로 인쇄**하면
-배율이 그대로 적용됩니다.
+Enlarge the PDF to your desired scale, split it into multiple A4/A3 pages, and create a new PDF with a dotted junction guide and a label at the top left. If you print this PDF at 100% (actual size), the scale will be applied as is.
 
-이 폴더는 병원 PC에서 **한 번만** 빌드하면 되는 "포터블 EXE 제작 꾸러미"입니다.
-인터넷이 막혀 있어도 되도록 필요한 설치파일(`wheels` 폴더)을 함께 넣었습니다.
+This folder is a "Portable EXE Creation Package" that requires building only once on a hospital PC. We have included the necessary installation files (wheels folder) so that you can run it even if the internet is blocked.
 
-## 들어있는 것
-- `pdf_split_scale.py` : 프로그램 본체
-- `build_exe.bat`      : 더블클릭용 빌드 스크립트 (오프라인 우선)
-- `wheels\`            : 오프라인 설치용 패키지(휠) — 지우지 마세요
-- `README.md`          : 이 안내문
+Contents
 
-## 만드는 순서 (3단계)
-1. **파이썬 설치** (최초 1회): 64비트 Windows에 파이썬 3.10~3.13.
-   - <https://www.python.org/downloads/> 설치 시 **"Add python.exe to PATH" 체크**
-   - 또는 Microsoft Store에서 "Python 3.12" 설치
-2. 이 폴더 전체를 PC에 복사한 뒤, **`build_exe.bat` 더블클릭** (수 분 소요)
-3. 끝나면 `dist\YonseiEBSplit.exe` 생성
-   → **이 EXE 하나만** 복사하면 어느 PC에서든 파이썬 없이 실행됩니다.
+pdf_split_scale.py: Main program body
 
-## 사용법
-- **더블클릭** → 파일 선택 GUI (PDF 선택 → 배율 입력 → 용지 선택 → 실행)
-- **명령줄**
-  ```
-  YonseiEBSplit.exe 입력.pdf --scale 1.75 --paper A4
-  옵션: --paper A3 / --orientation auto|portrait|landscape / --overlap 10 / --margin 5
-  ```
+build_exe.bat: Build script for double-click (offline priority)
 
-## 인쇄 & 조립
-1. 만들어진 PDF를 **"실제 크기 / 100%"** 로 인쇄 ("페이지에 맞춤" 금지).
-2. 각 장 좌측 상단 라벨 `[P페이지 R행/전체 C열/전체]` 순서로 배치.
-3. 이웃한 두 장을 **각각 빨간 점선을 따라 자른 뒤**, 잘린 면끼리 **맞대어(겹치지 말고)** 붙입니다.
-   두 장의 점선은 겹침 구간의 정중앙 = 완전히 같은 위치라, 잘라 맞대면 소실/중복 없이 딱 맞습니다.
-   (점선을 남기고 겹쳐 붙이면 겹침 폭만큼 그림이 사라지니, 반드시 "잘라서 맞대기"로 하세요.)
+wheels\: Offline installation package (wheels) — Do not delete
 
-## 참고
-- 32비트 Windows이거나 파이썬이 3.10~3.13이 아니면 `wheels` 오프라인 설치가 맞지 않을 수 있습니다.
-  그때는 인터넷 연결 후 `build_exe.bat` 를 실행하면 자동으로 온라인 설치로 넘어갑니다.
-- 콘솔창 없이 GUI만 뜨게 하려면 `build_exe.bat` 의 PyInstaller 줄 끝에 `--noconsole` 추가 후 재빌드.
+README.md: This instruction manual
+
+Instructions (3 steps)
+
+Python Installation (First time): Python 3.10~3.13 on 64-bit Windows. When installing from https://www.python.org/downloads/, check "Add python.exe to PATH".
+
+Alternatively, install "Python 3.12" from the Microsoft Store.
+
+Copy the entire folder to your PC, then double-click build_exe.bat (takes a few minutes).
+
+Once finished, dist\YonseiEBSplit.exe will be created. → Copying this single EXE will allow it to run on any PC without Python.
+
+Usage
+
+Double-click → File Selection GUI (Select PDF → Enter scale → Select paper size → Run)
+
+Command Line
+
+Enter YonseiEBSplit.exe.pdf --scale 1.75 --paper A4
+
+Options: --paper A3 / --orientation auto|portrait|landscape / --overlap 10 / --margin 5
+
+Print & Assembly
+
+Print the created PDF at "Actual Size / 100%" (Do not use "Fit to Page").
+
+Arrange the labels at the top left of each chapter in the order [Page R / Entire C / Entire]. Cut along the red dotted lines on each of the two adjacent sheets, then align the cut edges (without overlapping) and attach them. Since the dotted lines on the two sheets mark the exact center of the overlapping section—that is, the exact same location—cutting and butting them results in a perfect fit without any loss or overlap. (If you leave the dotted lines intact and overlap them, the image will disappear by the width of the overlap, so be sure to use the "cut and butt" method.)
+
+Note
+
+If you are using 32-bit Windows or Python is not version 3.10 or 3.13, the offline installation of wheels may not work. In that case, connect to the internet and run build_exe.bat to automatically proceed to the online installation.
+
+To display only the GUI without a console window, add --noconsole to the end of the PyInstaller line in build_exe.bat and rebuild.
